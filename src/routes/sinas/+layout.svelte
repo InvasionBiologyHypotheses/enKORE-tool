@@ -1,24 +1,24 @@
 <script>
-  import { page } from "$app/stores";
+	import Link from "$lib/components/Link.svelte";
 </script>
 
 <header>
-  <nav>
-    <ul>
-      <li><a href="/sinas/qs">QuickStatements</a></li>
-      <li><a href="/sinas/taxa">taxa</a></li>
-    </ul>
-  </nav>
+	<nav>
+		<ul>
+			<li><Link path="/sinas/qs">QuickStatements</Link></li>
+			<li><Link path="/sinas/taxa">taxa</Link></li>
+		</ul>
+	</nav>
 </header>
 
 <slot />
 
 <style>
-  ul {
-    display: flex;
-    gap: 2rem;
-  }
-  li {
-    list-style-type: none;
-  }
+	ul {
+		display: flex;
+		gap: 2rem;
+	}
+	li {
+		list-style-type: none;
+	}
 </style>

@@ -31,7 +31,7 @@
 	"dependencies": {
 		"gridjs": "^5.1.0",
 		"gridjs-svelte": "^2.1.1",
-		"svelte-simple-datatables": "^0.2.3",
+		"svelte-simple-datatables": "github:bootsa/svelte-simple-datatables",
 		"typescript": "^4.8.4"
 	}
 }

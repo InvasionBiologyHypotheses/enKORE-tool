@@ -7,8 +7,8 @@ import { error } from "@sveltejs/kit";
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
 	const corpusDataRaw = await readFileSync(resolve(CORPUS_ENTRIES_SOURCE), { encoding: "utf8", flag: "r" });
-	const corpusData = JSON.parse(corpusDataRaw);
-
+	const corpusData = await JSON.parse(corpusDataRaw);
+	console.log(JSON.stringify(corpusData, null, 2));
 	const data = {
 		params,
 		corpusData,

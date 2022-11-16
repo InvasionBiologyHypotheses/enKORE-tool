@@ -1,80 +1,66 @@
 <script>
-  import Grid from "gridjs-svelte";
+	import { Datatable } from "svelte-simple-datatables";
 
-  // import Datatable from "svelte-simple-datatables";
+	import Link from "$lib/components/Link.svelte";
 
-  export let data;
+	export let data;
 
-  // const settings = { columnFilter: true };
-  // let rows;
-  $: tableData = data.corpusData.results.bindings.map((x) => x.item.value);
+	const settings = { columnFilter: true };
+	let rows;
 
-  $: columns = data.corpusData.head.vars.map((x) => {
-    return { name: x, data: (cell) => cell };
-  });
-
-  const datar = [
-    { name: "John", email: "john@example.com" },
-    { name: "Mark", email: "mark@gmail.com" },
-  ];
-
-  const columnur = [{ name: "EMAN" }, { name: "LIAME" }];
+	$: ({ corpusData } = data);
 </script>
 
-<Grid data={datar} columns={columnur} />
-
-<Grid data={tableData} {columns} />
-<!-- <Datatable {settings} data={data.corpusData.results.bindings} bind:dataRows={rows}>
-  <thead>
-    {#each data.corpusData.head.vars as v}
-      <th data-key={v}>{v}</th>
-    {/each}
-  </thead>
-  <tbody>
-    {#if rows}
-      {#each $rows as row}
-        <tr>
-          {#each data.corpusData.head.vars as v}
-            <td>{row[v].value}</td>
-          {/each}
-        </tr>
-      {/each}
-    {/if}
-  </tbody>
-</Datatable> -->
+{corpusData.results.bindings.length}
+{#if corpusData}
+	<Datatable {settings} data={corpusData.results.bindings} bind:dataRows={rows} id={"dtcorpus"}>
+		<thead>
+			<th data-key="item">item</th>
+			<th data-key="license">license</th>
+		</thead>
+		<tbody>
+			{#if rows}
+				{#each $rows as row}
+					<tr>
+						<td><Link path={row["item"].value}>{row["itemLabel"].value}</Link></td>
+						<td><Link path={row["license"].value}>{row["licenseLabel"].value}</Link></td>
+					</tr>
+				{/each}
+			{/if}
+		</tbody>
+	</Datatable>
+{:else}
+	<p>Waiting on data...</p>
+{/if}
 
 <div class="devbox float top right">
-  <details>
-    <summary>tableData</summary>
-    <pre>
-      {JSON.stringify(tableData, null, 2)}
+	<details>
+		<summary>raw data</summary>
+		<pre>
+      {JSON.stringify(corpusData, null, 2)}
     </pre>
-  </details>
-  <details>
-    <summary>columns</summary>
-    <pre>
-      {JSON.stringify(columns, null, 2)}
-    </pre>
-  </details>
-  <details>
-    <summary>raw data</summary>
-    <pre>
-      {JSON.stringify(data, null, 2)}
-    </pre>
-  </details>
+	</details>
 </div>
 
 <style>
-  .devbox {
-    max-width: 80vw;
-  }
-  .float {
-    position: absolute;
-  }
-  .right {
-    right: 0;
-  }
-  .top {
-    top: 0;
-  }
+	.devbox {
+		max-width: 80vw;
+		background-color: white;
+	}
+	.float {
+		position: absolute;
+	}
+	.right {
+		right: 0;
+	}
+	.top {
+		top: 0;
+	}
+	#dtcorpus {
+		height: unset;
+	}
+	td {
+		text-align: center;
+		padding: 4px 0;
+	}
 </style>
