@@ -56,9 +56,6 @@
 	.top {
 		top: 0;
 	}
-	#dtcorpus {
-		height: unset;
-	}
 	td {
 		text-align: center;
 		padding: 4px 0;
